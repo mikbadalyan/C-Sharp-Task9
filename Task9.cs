@@ -1,6 +1,73 @@
-﻿/*
+﻿//4. DECONSTRUCTING IN CLASS 
+using System;
+
+class QuadraticEquationSolver
+{
+    public void Solve(A equation, out double x1, out double x2)
+    {
+        x1 = -1;
+        x2 = -1;
+        (double a, double b, double c) = equation;
+
+        double discriminant = b * b - 4 * a * c;
+
+        if (discriminant < 0)
+        {
+           
+            Console.WriteLine("Complex Roots");
+        }
+        else if (discriminant == 0)
+        {
+            
+            x1 = -b / (2 * a);
+            x2 = x1;
+        }
+        else
+        {
+            
+            x1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
+            x2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
+        }
+    }
+}
+
+class A
+{
+    public double a, b, c;
+
+    // Deconstructor method to deconstruct A
+    public void Deconstruct(out double a, out double b, out double c)
+    {
+        a = this.a;
+        b = this.b;
+        c = this.c;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        A equation = new A() { a = 1, b = -3, c = 2 }; 
+
+        QuadraticEquationSolver solver = new QuadraticEquationSolver();
+        solver.Solve(equation, out double root1, out double root2);
+
+        Console.WriteLine("Root 1: ");
+        Console.WriteLine(root1);
+        Console.WriteLine();
+        Console.WriteLine("Root 2: ");
+        Console.WriteLine(root2);
+    }
+}
+
+
+
+
+
+/*
 1. WITH REF PARAMETERS
-*/
+
 using System;
 using System.Threading.Channels;
 
@@ -43,7 +110,7 @@ public class QuadraticEquationSolver
 }
 
 
-
+*/
 /*
 2. USING TUPLE
  
@@ -136,65 +203,4 @@ public class QuadraticEquationSolver
         Console.WriteLine($"x1 = {roots[0]}, x2 = {roots[1]}");
     }
 }*/
-
-
-/*
-4. DECONSTRUCTING IN CLASS 
- 
-using System;
-
-public class QuadraticEquationSolver
-{
-    private readonly double a, b, c;
-
-    public QuadraticEquationSolver(double a, double b, double c)
-    {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-    }
-
-    public bool Solve(out double x1, out double x2)
-    {
-        double discriminant = b * b - 4 * a * c;
-        bool hasRealRoots = true;
-
-        if (discriminant < 0)
-        {
-            // No real roots exist
-            x1 = x2 = 0; // Assigning arbitrary values, could be NaN or anything indicating no real roots
-            hasRealRoots = false;
-        }
-        else if (discriminant == 0)
-        {
-            x1 = x2 = -b / (2 * a);
-        }
-        else
-        {
-            x1 = (-b + Math.Sqrt(discriminant)) / (2 * a);
-            x2 = (-b - Math.Sqrt(discriminant)) / (2 * a);
-        }
-
-        return hasRealRoots;
-    }
-
-    public static void Main(string[] args)
-    {
-        double a = 1, b = -3, c = 2;
-
-        QuadraticEquationSolver solver = new QuadraticEquationSolver(a, b, c);
-        bool hasRealRoots = solver.Solve(out double x1, out double x2);
-
-        if (hasRealRoots)
-        {
-            Console.WriteLine($"x1 = {x1}, x2 = {x2}");
-        }
-        else
-        {
-            Console.WriteLine("No real roots exist.");
-        }
-    }
-}
-*/
-
 
